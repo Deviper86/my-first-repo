@@ -1,16 +1,26 @@
 #!/usr/desktop/kachi bash
 # File: guessinggame.sh
 
-echo "guess how many files are in the directory then press Enter;Hint:rhymes with "or":"
-read response
-echo "You entered: $response"
+number_of_files=$(find * -maxdepth 0 -type f | wc -l)
 
-if [[ $response -eq 4 ]]
-then
-  echo "Congratuilations!! $response is my favorite number"
-elif [[ $response -gt 5 ]]
-then
-  echo "Sorry, $response is a great number"
-else
-  echo "You entered: $response, not what I was looking for."
-fi
+echo "Guess how many files are in the directory"
+
+function check_answer {
+    if [[ $1 -gt $number_of_files ]]
+    then
+        echo "oops, thats a greater number. Please, try again"
+    elif [[ $1 -lt $number_of_files ]]
+    then
+        echo "thats too low my friend, try again..."
+    else
+        echo "Congratulations! You are correct!!!"
+    fi
+}
+
+while [[ ! $user_guess -eq $number_of_files ]] 
+do
+    read user_guess
+    
+    check_answer $user_guess
+done
+
