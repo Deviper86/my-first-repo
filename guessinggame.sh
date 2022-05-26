@@ -3,7 +3,9 @@
 
 number_of_files=$(find * -maxdepth 0 -type f | wc -l)
 
+
 echo "Guess how many files are in the directory"
+
 
 function check_answer {
     if [[ $1 -gt $number_of_files ]]
@@ -17,10 +19,10 @@ function check_answer {
     fi
 }
 
+
 while [[ ! $user_guess -eq $number_of_files ]] 
 do
     read user_guess
     
     check_answer $user_guess
 done
-
